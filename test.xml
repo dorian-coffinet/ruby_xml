@@ -1,35 +1,4 @@
-<gekkonidae>
- 
-    <gecko name="Blue">
-        <espece>Tokay</espece>
-        <region>Asie du Sud-Est</region>
-        <couleur>Gris-Bleu à points Rouges et Blancs</couleur>
-        <taille>Grand</taille>
-        <periode>Nocturne</periode>
-    </gecko>
- 
-    <gecko name="Leopard">
-        <espece>Leopard</espece>
-        <region>Moyen-Orient et Inde</region>
-        <couleur>Leopard</couleur>
-        <taille>Moyen</taille>
-        <periode>Nocturne</periode>
-    </gecko>
- 
-    <gecko name="Orange">
-        <espece>Rhacodactylus ciliatus</espece>
-        <region>Nouvelle-Calédonie</region>
-        <couleur>Orange</couleur>
-        <taille>Moyen</taille>
-        <periode>Nocturne</periode>
-    </gecko>
- 
-    <gecko name="Green">
-        <espece>Phelsuma</espece>
-        <region>Ile de Madagascar et Environs</region>
-        <couleur>Vert</couleur>
-        <taille>Moyenne</taille>
-        <periode>Diurne</periode>
-    </gecko>
- 
-</gekkonidae>
+<?xml version="1.0" encoding="UTF-8"?>
+<gecko name="Geckogeek">
+    <espece>Geek</espece>
+</gecko>
