@@ -112,10 +112,11 @@ class XMLNokogiri
   end
 
   #transform xml to xsl
-  def tramsform_mxl_xsl(document_path, xsl_path)
+  def tramsform_xml_xsl(document_path, xsl_path)
   	doc   = Nokogiri::XML(File.read(document_path))
 		xslt  = Nokogiri::XSLT(File.read(xsl_path))
-		return xslt.transform(doc)
+		#warning difference between apply_to => serializable document, and tranform =>Nokogiri::Document
+		return xslt.apply_to(doc)
 	end
 
 end
@@ -133,7 +134,7 @@ myXMLNokogiri = XMLNokogiri.new("./doc/books.xml")
 #   puts error.message
 # end
 
-puts myXMLNokogiri.tramsform_mxl_xsl("./doc/serv00.xml","./doc/serv05.xsl")
+puts myXMLNokogiri.tramsform_xml_xsl("./doc/films2.xml","./doc/film1.xsl").to_s
 # # Get the node of the gecko named Green
 # myXMLNokogiri.searchNode('//gecko[@name = "Green"]')
  
