@@ -3,7 +3,7 @@ require 'nokogiri'
  
 class XMLNokogiri
  
-  attr_accessor :myDoc
+  attr_accessor :myDoc, :schema
  
   def initialize(myFileName)
     loadXML(myFileName)
@@ -91,38 +91,63 @@ class XMLNokogiri
 	  myFile.close
 	end
 
+	# well formed xml documents
+	def well_formed
+		return myDoc.errors
+	end
+
+	#validate xml document with a schemas
+	def read_schema(schema_path)
+		read_schema(schema_path)
+    @schema = Nokogiri::XML::Schema(File.read(schema_path))
+  end
+
+  def validate(schema_path)
+    @schema.validate(@document)
+  end
+
+
 end
 
 # Load the XML doc
-myXMLNokogiri = XMLNokogiri.new("./test.xml")
+myXMLNokogiri = XMLNokogiri.new("./dmf.xml")
 # Print the XML doc
 myXMLNokogiri.readXML()
-# Get the node of the gecko named Green
-myXMLNokogiri.searchNode('//gecko[@name = "Green"]')
+
+# try to see if xml doc is well formed or not
+puts myXMLNokogiri.well_formed
+
+# # try to validate xml doc with schemas
+# myXMLNokogiri.validate("schema.xsd").each do |error|
+#   puts error.message
+# end
+
+# # Get the node of the gecko named Green
+# myXMLNokogiri.searchNode('//gecko[@name = "Green"]')
  
-# Add a new gecko node with an attribute name Color
-myNewNode = myXMLNokogiri.createANewNode('gecko')
-myXMLNokogiri.addAnAttribute(myNewNode, 'name', 'Color')
-myXMLNokogiri.addARootNode(myNewNode)
+# # Add a new gecko node with an attribute name Color
+# myNewNode = myXMLNokogiri.createANewNode('gecko')
+# myXMLNokogiri.addAnAttribute(myNewNode, 'name', 'Color')
+# myXMLNokogiri.addARootNode(myNewNode)
  
-# Add a node couleur to the node we have just added
-myNewNode = myXMLNokogiri.createANewNode('couleur')
-myXMLNokogiri.addText(myNewNode, 'Multicolor')
-myNode = myXMLNokogiri.searchNode('//gecko[@name = "Color"]')
-myXMLNokogiri.insertAChildNode(myNode, myNewNode)
+# # Add a node couleur to the node we have just added
+# myNewNode = myXMLNokogiri.createANewNode('couleur')
+# myXMLNokogiri.addText(myNewNode, 'Multicolor')
+# myNode = myXMLNokogiri.searchNode('//gecko[@name = "Color"]')
+# myXMLNokogiri.insertAChildNode(myNode, myNewNode)
  
-# We create a new doc and save it at the place of the old one (yeah, it's just to test eh :p)
-myXMLNokogiri.myDoc = myXMLNokogiri.createANewDoc()
+# # We create a new doc and save it at the place of the old one (yeah, it's just to test eh :p)
+# myXMLNokogiri.myDoc = myXMLNokogiri.createANewDoc()
  
-# We create a new node with an attribute
-myNewNode = myXMLNokogiri.createANewNode('gecko')
-myXMLNokogiri.addAnAttribute(myNewNode, 'name', 'Geckogeek')
-# We create a new node and add it to the gecko node we have created
-myNewChildNode = myXMLNokogiri.createANewNode('espece')
-myXMLNokogiri.addText(myNewChildNode, 'Geek')
-myXMLNokogiri.insertAChildNode(myNewNode, myNewChildNode)
-# We add the gecko node to our new tree
-myXMLNokogiri.addARootNode(myNewNode)
+# # We create a new node with an attribute
+# myNewNode = myXMLNokogiri.createANewNode('gecko')
+# myXMLNokogiri.addAnAttribute(myNewNode, 'name', 'Geckogeek')
+# # We create a new node and add it to the gecko node we have created
+# myNewChildNode = myXMLNokogiri.createANewNode('espece')
+# myXMLNokogiri.addText(myNewChildNode, 'Geek')
+# myXMLNokogiri.insertAChildNode(myNewNode, myNewChildNode)
+# # We add the gecko node to our new tree
+# myXMLNokogiri.addARootNode(myNewNode)
  
-# We save this tree in a file
-myXMLNokogiri.saveToFile("./test.xml")
+# # We save this tree in a file
+# myXMLNokogiri.saveToFile("./test.xml")
