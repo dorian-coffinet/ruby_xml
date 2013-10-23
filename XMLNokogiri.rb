@@ -114,7 +114,7 @@ class XMLNokogiri
 end
 
 # Load the XML doc
-myXMLNokogiri = XMLNokogiri.new("./books.xml")
+myXMLNokogiri = XMLNokogiri.new("./doc/books.xml")
 # Print the XML doc
 myXMLNokogiri.readXML()
 
@@ -122,7 +122,7 @@ myXMLNokogiri.readXML()
 puts myXMLNokogiri.well_formed
 
 # try to validate xml doc with schemas
-myXMLNokogiri.validate("books.xml","books.xsd").each do |error|
+myXMLNokogiri.validate("./doc/books.xml","./doc/books.xsd").each do |error|
   puts error.message
 end
 
