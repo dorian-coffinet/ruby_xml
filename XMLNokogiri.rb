@@ -3,7 +3,7 @@ require 'nokogiri'
  
 class XMLNokogiri
  
-  attr_accessor :myDoc, :schema
+  attr_accessor :myDoc, :schema, :document
  
   def initialize(myFileName)
     loadXML(myFileName)
@@ -98,29 +98,33 @@ class XMLNokogiri
 
 	#validate xml document with a schemas
 	def read_schema(schema_path)
-		read_schema(schema_path)
     @schema = Nokogiri::XML::Schema(File.read(schema_path))
   end
 
-  def validate(schema_path)
-    @schema.validate(@document)
+  def read_document(document_path)
+    @document = Nokogiri::XML(File.read(document_path))
   end
 
+  def validate(document_path, schema_path)
+  	read_document(document_path)
+  	read_schema(schema_path)
+    @schema.validate(@document)
+  end
 
 end
 
 # Load the XML doc
-myXMLNokogiri = XMLNokogiri.new("./dmf.xml")
+myXMLNokogiri = XMLNokogiri.new("./books.xml")
 # Print the XML doc
 myXMLNokogiri.readXML()
 
 # try to see if xml doc is well formed or not
 puts myXMLNokogiri.well_formed
 
-# # try to validate xml doc with schemas
-# myXMLNokogiri.validate("schema.xsd").each do |error|
-#   puts error.message
-# end
+# try to validate xml doc with schemas
+myXMLNokogiri.validate("books.xml","books.xsd").each do |error|
+  puts error.message
+end
 
 # # Get the node of the gecko named Green
 # myXMLNokogiri.searchNode('//gecko[@name = "Green"]')
