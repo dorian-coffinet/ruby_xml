@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<!-- serv00.xml -->
+<services>
+<service>Achats</service>
+<service>Direction</service>
+<!-- attention, ce qui suit doit avoir des retours-charriot en plus -->
+<service>
+Courrier
+</service>
+<service>Direction</service>
+</services>

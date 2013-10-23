@@ -111,21 +111,29 @@ class XMLNokogiri
     @schema.validate(@document)
   end
 
+  #transform xml to xsl
+  def tramsform_mxl_xsl(document_path, xsl_path)
+  	doc   = Nokogiri::XML(File.read(document_path))
+		xslt  = Nokogiri::XSLT(File.read(xsl_path))
+		return xslt.transform(doc)
+	end
+
 end
 
 # Load the XML doc
 myXMLNokogiri = XMLNokogiri.new("./doc/books.xml")
-# Print the XML doc
-myXMLNokogiri.readXML()
+# # Print the XML doc
+# myXMLNokogiri.readXML()
 
-# try to see if xml doc is well formed or not
-puts myXMLNokogiri.well_formed
+# # try to see if xml doc is well formed or not
+# puts myXMLNokogiri.well_formed
 
-# try to validate xml doc with schemas
-myXMLNokogiri.validate("./doc/books.xml","./doc/books.xsd").each do |error|
-  puts error.message
-end
+# # try to validate xml doc with schemas
+# myXMLNokogiri.validate("./doc/books.xml","./doc/books.xsd").each do |error|
+#   puts error.message
+# end
 
+puts myXMLNokogiri.tramsform_mxl_xsl("./doc/serv00.xml","./doc/serv05.xsl")
 # # Get the node of the gecko named Green
 # myXMLNokogiri.searchNode('//gecko[@name = "Green"]')
  
